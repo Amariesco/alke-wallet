@@ -1,0 +1,64 @@
+<!-- Pantalla del menú principal (menu.html):
+
+ Agregar eventos a estos tres botones:
+ "Depositar", "Enviar Dinero" y "Últimos Movimientos" para que al hacer clic aparece una leyenda que diga, redirigiendo a “nombre de la pantalla seleccionada”. 
+ EJemplo: redirigiendo a últimos movimientos.
+ Implementa la funcionalidad de los botones utilizando JavaScript para redirigir a las pantallas correspondientes.
+
+ Notas:
+ - Falta modificar para que los botones queden centrados -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Billetera Digital - Menú Principal</title>
+    <link rel="stylesheet" href="styles.css">
+
+<body>
+    <!-- Titulo -->
+    <header>
+    </header>
+
+    <main>
+        <div class="tarjeta">
+            <h2 class="text-center mb-4">Menú Principal</h2>
+
+            <div class="saldo">
+                <p class="mb-1">Saldo Disponible</p>
+                <h2>$15,750.00</h2>
+            </div>
+            <nav>
+                    <button onclick="redirigirDeposito()" class="btn btn-success w-100 mb-2">Depositar</button>
+                    <button onclick="redirigirEnviar()" class="btn btn-success w-100 mb-2">Enviar Dinero</button>
+                    <button onclick="redirigirMovimientos()" class="btn btn-success w-100 mb-2">Últimos
+                        Movimientos</button>
+            </nav>
+            <button onclick="cerrarSesion()" class="btn btn-outline-danger w-100">Cerrar Sesión</button>
+        </div>
+
+    </main>
+
+    <!-- Footer con la firma-->
+    <footer>
+        <p class="footer">© 2026 Ana Marión Escobar</p>
+    </footer>
+
+    <!-- Script Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Script Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script al archivo js-->
+    <script src="js/script.js"></script>
+    <!-- Script jquery-->
+    <script>
+        $(document).ready(function () {
+            mostrarSaldo();
+        });
+    </script>
+</body>
+
+</html>
