@@ -1,0 +1,5 @@
+    // Credenciales login ((CAMBIAR en archivo js!!)) 
+    // Deberia agregarse a .gitignore (lo dejo para dar claridad de las credenciales a usar en pruebas del wallet)
+
+    Email Correcto = ana@email.com
+    Password Correcta = 1234
