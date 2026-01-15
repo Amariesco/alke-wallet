@@ -24,7 +24,7 @@ function validarLogin(event) {
     var password = $('#passwordInput').val(); // se reemplaza ( var password = document.querySelector('input[type="password"]').value; ) por jquery 
 
     // Credenciales 'correctas' ((CAMBIAR cuando sea necesario!!))
-    var emailCorrecto = 'ana@email.com';
+    var emailCorrecto = 'ana@gmail.com';
     var passwordCorrecta = '1234';
 
     $('#alert-container').empty();  // Limpia alertas previas
