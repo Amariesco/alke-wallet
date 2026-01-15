@@ -1,4 +1,4 @@
- <!-- Pantalla de enviar dinero (sendmoney.html):
+<!-- Pantalla de enviar dinero (sendmoney.html):
 
  Mostrar y ocultar el formulario para agregar nuevos contactos:
   Podemos agregar interacción para mostrar y ocultar el formulario para agregar nuevos contactos. Al hacer clic en el botón "Agregar nuevo contacto", podemos mostrar el formulario y al hacer clic en el botón "Cancelar" dentro del formulario, podemos ocultarlo nuevamente.
@@ -12,9 +12,10 @@
   Después de que el usuario envíe dinero a un contacto, podemos mostrar un mensaje de confirmación en la parte inferior de la página, indicando que el envío se realizó con éxito.
 
  Notas: 
- - Solo se agrego solo busqueda por nombre, ya que no hay Alias registrados. (Pendiente por modificar)
+ - Solo se agrego busqueda por nombre, ya que no hay Alias registrados. (Pendiente por modificar)
  - Ya tenia botones en cada contacto para realizar el envio, por lo que no se ha terminado lo de que aparezca el boton al seleccionar contacto. (Pendiente por modificar) 
  - Agregar que se muestren los nuevos usuarios agregados (Pendiente por hacer) -->
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -38,8 +39,10 @@
             <div class="mb-3">
                 <label class="form-label">Buscar Contacto</label>
                 <div class="input-group">
-                    <input type="text" id="buscarInput" class="form-control" placeholder="Buscar por nombre"> <!-- Agregado Id -->
-                    <button class="btn btn-primary" type="button" onclick="buscarContacto()">Buscar</button> <!-- cambiado boton de busqueda -->
+                    <input type="text" id="buscarInput" class="form-control" placeholder="Buscar por nombre o alias">
+                    <!-- Agregado Id -->
+                    <button class="btn btn-primary" type="button" onclick="buscarContacto()">Buscar</button>
+                    <!-- Cambiado boton de busqueda -->
                 </div>
             </div>
             <!-- Agregar Nuevo Contacto con formulario emergente -->
@@ -51,36 +54,41 @@
             <!-- Contactos -->
             <h5 class="mb-3">Contactos Frecuentes</h5>
             <div>
-                <div class="contacto">
+                <div class="contacto" data-alias="Mary" onclick="seleccionarContacto('María García', this)">
+                    <!-- Se agrega Alias y se hace seleccionable el contacto -->
                     <strong>María García</strong><br>
+                    <small>Alias: Mary</small><br>
                     <small>Banco: Estado</small><br>
                     <small>Numero de cuenta: 00-332-535 </small><br>
                     <small>Tipo de cuenta: Corriente</small><br>
                     <small>maria.garcia@email.com</small><br>
-                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalEnviar"
-                        onclick="seleccionarContacto('María García')">Enviar Dinero</button>
                 </div>
 
-                <div class="contacto">
+                <div class="contacto" data-alias="Juanito" onclick="seleccionarContacto('Juan Pérez', this)">
+                    <!-- Se agrega Alias y se hace seleccionable el contacto -->
                     <strong>Juan Pérez</strong><br>
+                    <small>Alias: Juanito</small><br>
                     <small>Banco: Chile</small><br>
                     <small>Numero de cuenta: 1-23455-55562</small><br>
                     <small>Tipo de cuenta: Chequera Electronica</small><br>
                     <small>juan.perez@email.com</small><br>
-                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalEnviar"
-                        onclick="seleccionarContacto('Juan Pérez')">Enviar Dinero</button>
                 </div>
 
-                <div class="contacto">
+                <div class="contacto" data-alias="Anilla" onclick="seleccionarContacto('Juan Pérez', this)">
+                    <!-- Se agrega Alias y se hace seleccionable el contacto -->
                     <strong>Ana Martínez</strong><br>
+                    <small>Alias: Anilla</small><br>
                     <small>Banco: BCI</small><br>
                     <small>Numero de cuenta: 123-2356-356</small><br>
                     <small>Tipo de cuenta: Vista</small><br>
                     <small>ana.martinez@email.com</small><br>
-                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalEnviar"
-                        onclick="seleccionarContacto('Ana Martínez')">Enviar Dinero</button>
                 </div>
             </div>
+            <button id="btnEnviarDinero" class="btn btn-success w-100 mt-3" style="display: none;"
+                data-bs-toggle="modal" data-bs-target="#modalEnviar">
+                Enviar Dinero al Contacto Seleccionado
+            </button> <!-- Se agrega boton flotante -->
+            <hr>
             <!-- Volver al Menú -->
             <a href="menu.html" class="btn btn-outline-secondary w-100">Volver al Menú</a>
         </div>
@@ -97,23 +105,28 @@
                         <form id="formContacto"> <!-- Agregado Id -->
                             <div class="mb-3">
                                 <label class="form-label">Nombre Completo</label>
-                                <input type="text" id="nombreContacto" class="form-control" required> <!-- Agregado Id -->
+                                <input type="text" id="nombreContacto" class="form-control" required>
+                                <!-- Agregado Id -->
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Alias</label>
-                                <input type="text" id="aliasContacto" class="form-control" required> <!-- Agregado Id -->
+                                <input type="text" id="aliasContacto" class="form-control" required>
+                                <!-- Agregado Id -->
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Banco</label>
-                                <input type="text" id="bancoContacto" class="form-control" required> <!-- Agregado Id -->
+                                <input type="text" id="bancoContacto" class="form-control" required>
+                                <!-- Agregado Id -->
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Numero de Cuenta</label>
-                                <input type="number" id="cuentaContacto" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required> <!-- Agregado Id -->
+                                <input type="number" id="cuentaContacto" class="form-control"
+                                    placeholder="XXXX XXXX XXXX XXXX" required> <!-- Agregado Id -->
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" id="emailContacto" class="form-control" required> <!-- Agregado Id -->
+                                <input type="email" id="emailContacto" class="form-control" required>
+                                <!-- Agregado Id -->
                             </div>
                         </form>
                     </div>
@@ -139,13 +152,15 @@
                     <form id="formEnviar">
                         <div class="mb-3">
                             <label class="form-label">Monto a Enviar</label>
-                            <input type="number" id="montoEnviar" class="form-control" placeholder="0" required> <!-- Agregado Id -->
+                            <input type="number" id="montoEnviar" class="form-control" placeholder="0" required>
+                            <!-- Agregado Id -->
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mensaje (opcional)</label>
                             <textarea class="form-control"></textarea>
                         </div>
-                        <button type="button" class="btn btn-success w-100" onclick="enviarDinero(event)">Confirmar Envío</button>
+                        <button type="button" class="btn btn-success w-100" onclick="enviarDinero(event)">Confirmar
+                            Envío</button>
                     </form>
                 </div>
             </div>
@@ -157,18 +172,18 @@
             <p class="footer">© 2026 Ana Marión Escobar</p>
         </footer>
 
-    <!-- Script Jquery-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Script Bootstrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script al archivo js-->
-    <script src="js/script.js"></script>
-    <!-- Script Jquery-->
-    <script>
-        $(document).ready(function() {
-            $('#buscarInput').on('keyup', buscarContacto);
-        });
-    </script>
+        <!-- Script Jquery-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Script Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Script al archivo js-->
+        <script src="js/script.js"></script>
+        <!-- Script Jquery-->
+        <script>
+            $(document).ready(function () {
+                $('#buscarInput').on('keyup', buscarContacto);
+            });
+        </script>
 </body>
 
 </html>
