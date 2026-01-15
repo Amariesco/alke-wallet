@@ -5,7 +5,6 @@
 
 // Notas:
 // *Se cambian todos los document.querySelector por $( de Jquery
-// *Se agrega localStorage.removeItem en cerrar sesion, para que no guarde en local despues de cerrar la sesion. 
 // *Se cambian los inputs para agregar contactos ya que [type="text"] en nombre y banco podria dar error.
 // *Se cambia la <li> de transacciones a <div> para que no muestre puntos en la lista de movimientos.
 
