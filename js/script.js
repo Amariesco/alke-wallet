@@ -7,16 +7,13 @@
 // *Se cambian todos los document.querySelector por $( de Jquery
 // *Se agrega localStorage.removeItem en cerrar sesion, para que no guarde en local despues de cerrar la sesion. 
 // *Se cambian los inputs para agregar contactos ya que [type="text"] en nombre y banco podria dar error.
-// *Se cambia la <li> de transacciones a <div> para que no muestre puntos en la lista de movimientos.
-// El cerrar sesion no esta limpiando Local.Storage (Pendiente de revisar!)
+// *Se cambia la <li> de transacciones a <div> para ue no muestre puntos en la lista de movimientos.
 
-if (!localStorage.getItem('saldo')) {
+// Al cargar la página de login, reiniciar datos si no hay sesión
+if (window.location.pathname.includes('login.html') && !localStorage.getItem('usuarioLogueado')) {
     localStorage.setItem('saldo', '15750');
-} // if para que solo se realice esto si no hay dato 'saldo' en el localStorage
-
-if (!localStorage.getItem('movimientos')) {
     localStorage.setItem('movimientos', JSON.stringify([]));
-}// if para que solo se realice esto si no hay dato 'movimiento' en el localStorage
+}
 
 // PARA LOGIN 
 function validarLogin(event) {
@@ -306,13 +303,13 @@ function filtrarMovimientos() {
     }
 }
 
+
 //PARA CERRAR SESIÓN
 function cerrarSesion() {
     var confirmar = confirm('¿Estás seguro que deseas cerrar sesión?');
     if (confirmar) {
-        localStorage.removeItem('usuarioLogueado'); // Borra el local al cerrar sesion
+        localStorage.clear(); // Limpiar TODO el localStorage
         alert('Sesión cerrada exitosamente');
         window.location.href = 'login.html';
     }
 }
-
