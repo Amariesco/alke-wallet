@@ -156,12 +156,12 @@ function mostrarSaldoActual() {
 // PARA ENVIAR DINERO
 var contactoSeleccionado = ''; // Variable Global
 
-function seleccionarContacto(nombre) {
+function seleccionarContacto(nombre, elemento) {
     contactoSeleccionado = nombre;
     
     $('.contacto').removeClass('contacto-seleccionado'); // Quita selección previa
-    
-    $(event.target).closest('.contacto').addClass('contacto-seleccionado'); // Agregar clase al contacto clickeado
+    $(elemento).addClass('contacto-seleccionado'); // Agregar clase al contacto clickeado
+    $('#btnEnviarDinero').show(); // Mostrar botón de envío
 }
 
 function enviarDinero(event) {
@@ -192,32 +192,48 @@ function enviarDinero(event) {
 }
 
 // Agregar nuevos Contactos
-function agregarContacto(event) {
-    event.preventDefault(); // Detiene el envío automático o recargar la pag.
 
-    var nombre = $('#nombreContacto').val();  // Nombre Completo
-    var alias = $('#aliasContacto').val();  // Alias
-    var banco = $('#bancoContacto').val();   // Banco
-    var cuenta = $('#cuentaContacto').val();  // Numero de Cuenta
-    var email = $('#emailContacto').val();   // Email
-    // Se reemplazan por JQuery
+function agregarContacto(event) {
+    event.preventDefault();  // Detiene el envío automático o recargar la pag.
+
+    var nombre = $('#nombreContacto').val(); // Nombre Completo
+    var alias = $('#aliasContacto').val(); // Alias
+    var banco = $('#bancoContacto').val(); // Banco
+    var cuenta = $('#cuentaContacto').val(); // Numero de Cuenta
+    var email = $('#emailContacto').val(); // Email
 
     if (nombre && alias && banco && cuenta && email) {
         if (cuenta.length < 10) {
             alert('El número de cuenta debe tener al menos 10 dígitos');
             return;
-        } // Validar que la cuenta tenga al menos 10 dígitos
+        }
 
+        // Crear el nuevo contacto HTML
+        var nuevoContactoHTML = `
+            <div class="contacto" data-alias="${alias.toLowerCase()}" onclick="seleccionarContacto('${nombre}', this)">
+                <strong>${nombre}</strong><br>
+                <small>Alias: ${alias}</small><br>
+                <small>Banco: ${banco}</small><br>
+                <small>Numero de cuenta: ${cuenta}</small><br>
+                <small>Tipo de cuenta: Vista</small><br>
+                <small>${email}</small>
+            </div>
+        `;
+
+        $('#listaContactos').append(nuevoContactoHTML); // Agrega el contacto a la lista
         alert('Contacto agregado: ' + nombre);
+        
+        // Cerrar modal
         var modal = bootstrap.Modal.getInstance(document.getElementById('modalContacto'));
         modal.hide();
 
         // Limpiar formulario
-        $('#formContacto')[0].reset(); // se reemplaza ( document.querySelector('#modalContacto form').reset(); ) por jquery
+        $('#formContacto')[0].reset();
     } else {
         alert('Completa todos los campos');
     } // Comprueba que se llenen todos los datos
 }
+
 
 // PARA BUSCAR CONTACTOS
 function buscarContacto() {
@@ -225,8 +241,9 @@ function buscarContacto() {
     
     $('.contacto').each(function() {
         var nombreContacto = $(this).find('strong').text().toLowerCase();
+        var aliasContacto = $(this).attr('data-alias') ? $(this).attr('data-alias').toLowerCase() : '';
         
-        if (nombreContacto.includes(termino) || termino === '') {
+        if (nombreContacto.includes(termino) || aliasContacto.includes(termino) || termino === '') {
             $(this).show();
         } else {
             $(this).hide();
